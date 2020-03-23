@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# How to run
+# ./xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr/xcopypaste4vr_all_OnLinux_WithCmake
+ 
+cd xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr &&
+mkdir -p release/xcopypaste4vr/lin_x64 &&
+mkdir -p release/xcopypaste4vr/win_x64 &&
+mkdir -p release/xcopypaste4vr/mac_x64 &&
+
+cd src
+mkdir -p build
+rm -r build/*
+cd build
+cmake ..
+make VERBOSE=1
+cd /home/bill/xcopypaste4vr_plugin_builder/xcopypaste4vr
+cp src/build/xcopypaste4vr.xpl release/xcopypaste4vr/lin_x64/
+
+cd src
+rm -r build/*
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=~/xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr/src/Toolchain-mingw-w64-x86-64.cmake ..
+make VERBOSE=1
+cd /home/bill/xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr
+cp src/build/xcopypaste4vr.xpl release/xcopypaste4vr/win_x64/
+
+cd src
+rm -r build/*
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=~/xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr/src/Toolchain-ubuntu-osxcross-10.11.cmake ..
+make VERBOSE=1
+cd /home/bill/xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr
+cp src/build/xcopypaste4vr.xpl release/xcopypaste4vr/mac_x64/
+
+cp release/xcopypaste4vr/lin_x64/xcopypaste4vr.xpl xcopypaste4vr/lin_x64/xcopypaste4vr.xpl
+cp release/xcopypaste4vr/win_x64/xcopypaste4vr.xpl xcopypaste4vr/win_x64/xcopypaste4vr.xpl
+cp release/xcopypaste4vr/mac_x64/xcopypaste4vr.xpl xcopypaste4vr/mac_x64/xcopypaste4vr.xpl
+
+# cp docs/Xbtn2cmd.pdf Xbtn2cmd/Documentation/Xbtn2cmd.pdf
+
+cd src
+rm -r build/*
+cd /home/bill/xp11_xcopypaste4vr_plugin_builder/xcopypaste4vr
+
+exec $SHELL
+#
+
